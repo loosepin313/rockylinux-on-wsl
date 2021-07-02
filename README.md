@@ -123,7 +123,7 @@ wsl -d rocky
 ```
 Setup a default user account:
 ```
-yum -y install epel-release && yum -y update && yum -y install passwd sudo
+dnf -y install epel-release && dnf -y update && dnf -y install passwd sudo
 myUsername=<insert username here>
 adduser -G wheel $myUsername
 echo -e "[user]\ndefault=$myUsername" >> /etc/wsl.conf
@@ -137,10 +137,20 @@ passwd root
 
 Install all the things:
 ```
-yum -y install \
+dnf -y install \
 vim \
+wget \
+curl \
 traceroute \
+rsync \
 dos2unix \
+zip \
+unzip \
+bash-completion \
+bc \
+bzip2 \
+file \
+time \
 glibc-langpack-en \
 libmodulemd \
 libzstd \
@@ -163,6 +173,14 @@ Do a full yum upgrade:
 ```
 yum -y upgrade
 ```
+
+If you want to get a more standard install you can install the @Base software group which will make it more like a standard fatter install.
+Not installing @Base makes the install much leaner but you may need to install packagfes as you go along if they are missing.
+Up to you.
+```
+dnf -y groupinstall base
+```
+
 Setup Windows terminal to use the new Rocky distro:
 ```
 wsl -s rocky
@@ -173,7 +191,7 @@ In settings set the default startup profile to be rocky84
 Select rocky
 then set these
 #General#
-Commandline:  wsl.exe -d rocky
+Commandline:  wsl.exe -u <insert username here> -d rocky
 Starting Directory: //wsl$/rocky/home/<insert username here>
 #Appearance#
 Text Colour scheme: tango dark
